@@ -3,13 +3,12 @@ package com.netty.nio;
 import java.nio.ByteBuffer;
 
 /**
- * Read only buffer
+ * Direct Buffer 直接缓冲
  */
-public class NioTest7 {
-
+public class NioTest8 {
     public static void main(String[] args) {
 
-        ByteBuffer b = ByteBuffer.allocate(10);
+        ByteBuffer b = ByteBuffer.allocateDirect(10);
 
         for (int i = 0; i < b.capacity(); i++){
             b.put((byte)i);
