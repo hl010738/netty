@@ -1,8 +1,6 @@
 package com.netty.nio;
 
 
-import com.google.common.collect.Maps;
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -74,8 +72,6 @@ public class NioServer {
                                 value.write(buffer);
                             }
                         }
-
-
                     }
 
                 } catch (IOException e) {

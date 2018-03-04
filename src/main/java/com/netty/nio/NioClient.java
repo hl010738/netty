@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
-import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
@@ -14,6 +13,10 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * NIO 网络编程
+ * 多个客户端同时绑定到一个端口
+ */
 public class NioClient {
     public static void main(String[] args) {
         try {
@@ -59,12 +62,22 @@ public class NioClient {
 
                                 }
                             });
+                            client.register(selector, SelectionKey.OP_READ);
                         }
+                    } else if (key.isReadable()){
+                        SocketChannel client = (SocketChannel)key.channel();
+
+                        ByteBuffer buffer = ByteBuffer.allocate(1024);
+                        int count = client.read(buffer);
+                        if (count > 0){
+                            String receiveMessage = new String(buffer.array(), 0, count);
+                            System.out.println(receiveMessage);
+                        }
+
                     }
                 }
-
+                keySet.clear();
             }
-
         } catch (Exception e){
             e.printStackTrace();
         }
