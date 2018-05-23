@@ -7,12 +7,10 @@ import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
 
-public class ServerHandler extends SimpleChannelInboundHandler<Long> {
-
-    private static ChannelGroup channelGroup = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
+public class ServerHandler extends SimpleChannelInboundHandler<String> {
 
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, Long msg) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
         System.out.println(ctx.channel().remoteAddress() + " , " + msg);
         ctx.writeAndFlush(654321L);
     }
